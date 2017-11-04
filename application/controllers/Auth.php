@@ -83,7 +83,7 @@ class Auth extends CI_Controller
             // jika password_old = user_password maka lanjutkan gan
             if ($chk_password === TRUE)
             {
-                $data_user['user_password'] = password_hash($password_new, PASSWORD_DEFAULT);
+                $data_user['users_password'] = password_hash($password_new, PASSWORD_DEFAULT);
                 $this->am->update_password($data_user);
                 redirect('auth/form');
             }
