@@ -20,7 +20,12 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data["modul"] = "welcome_message";
+		// Data untuk header
+		$data_header["title"] = "Dashboard";
+		$data["data_header"] = $data_header;
+		// END Data untuk header
+
+		$data["modul"] = "welcome_message"; // nama view yang akan ditampilkan
 		$this->load->view('template/template', $data);
 	}
 }
