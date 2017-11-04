@@ -1,14 +1,20 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<h1>Welcome to CodeIgniter!</h1>
 
-<div id="body">
-	<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+<div class="box box-solid box-primary">
+	<div class="box-header with-border">
+		<h3 class="box-title">Welcome to CodeIgniter!</h3>
+		<div class="box-tools pull-right">
+		</div>
+	</div>
+	<div class="box-body">
+		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 
-	<p>If you would like to edit this page you'll find it located at:</p>
-	<code>application/views/welcome_message.php</code>
+		<p>If you would like to edit this page you'll find it located at:</p>
+		<code>application/views/welcome_message.php</code>
 
-	<p>The corresponding controller for this page is found at:</p>
-	<code>application/controllers/Welcome.php</code>
+		<p>The corresponding controller for this page is found at:</p>
+		<code>application/controllers/Welcome.php</code>
 
-	<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+	</div>
 </div>

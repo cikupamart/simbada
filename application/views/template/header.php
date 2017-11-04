@@ -74,9 +74,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Logo -->
                 <a href="index2.html" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><b>A</b>LT</span>
+                    <span class="logo-mini"><b><?php echo SITE_TITLE; ?></b></span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Admin</b>LTE</span>
+                    <span class="logo-lg"><b><?php echo SITE_TITLE; ?></b></span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -105,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <a href="#">
                                                     <div class="pull-left">
                                                         <!-- User Image -->
-                                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                        <img src="<?php echo base_url("assets/adminlte/dist/img/user2-160x160.jpg"); ?>" class="img-circle" alt="User Image">
                                                     </div>
                                                     <!-- Message title and timestamp -->
                                                     <h4>
@@ -191,20 +191,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <img src="<?php echo base_url("assets/adminlte/dist/img/avatar04.png"); ?>" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs">Alexander Pierce</span>
+                                    <span class="hidden-xs"><?php echo ucwords($this->session->userdata('userName')); ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        <img src="<?php echo base_url("assets/adminlte/dist/img/avatar04.png"); ?>" class="img-circle" alt="User Image">
                                         <p>
-                                            Alexander Pierce - Web Developer
-                                            <small>Member since Nov. 2012</small>
+                                            <?php echo ucwords($this->session->userdata('userName')); ?>
+                                            <small>Nama SKPD</small>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
+                                    <!--
                                     <li class="user-body">
                                         <div class="row">
                                             <div class="col-xs-4 text-center">
@@ -217,6 +218,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <a href="#">Friends</a>
                                             </div>
                                         </div>
+                                        -->
                                         <!-- /.row -->
                                     </li>
                                     <!-- Menu Footer-->
@@ -241,3 +243,140 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </nav>
             </header>
+
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="<?php echo base_url("assets/adminlte/dist/img/avatar04.png"); ?>" class="img-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p><?php echo ucwords($this->session->userdata('userName')); ?></p>
+                            <!-- Status -->
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>
+
+                    <!-- search form (Optional) -->
+                    <form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- /.search form -->
+
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header">HEADER</li>
+                        <!-- Optionally, you can add icons to the links -->
+                        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="#">Link in level 2</a></li>
+                                <li><a href="#">Link in level 2</a></li>
+                            </ul>
+                        </li>
+
+                        <?php
+                        $ur_id = $this->session->userdata('userLevel');
+                        $sql_menu = 'SELECT DISTINCT ha_menu,ha_id,ha_ur,ha_view,ha_insert,ha_update,ha_delete,ha_proses,menu_id,menu_ket,menu_parent,menu_url,menu_order FROM hak_akses LEFT JOIN menu ON ha_menu=menu_id WHERE menu_parent=0 AND ha_ur='.$ur_id.' AND ha_view=1 ORDER BY menu_order ASC';
+                        // echo $sql_menu;
+                        $qry_menu = $this->db->query($sql_menu);
+                        $res_menu = $qry_menu->num_rows() > 0 ? $qry_menu->result() : FALSE;
+                        // var_dump($res_menu);
+
+                        if ($res_menu !== FALSE)
+                        {
+                            foreach ($res_menu as $val_menu)
+                            {
+                                $menu_url = $val_menu->menu_url === 'home' ? '' : $val_menu->menu_url;
+
+                                $sql_sub_menu = 'SELECT DISTINCT menu_id, menu_ket, menu_url, menu_order FROM hak_akses LEFT JOIN menu ON ha_menu=menu_id WHERE menu_parent='.$val_menu->menu_id.' AND ha_view=1 AND ha_ur='.$ur_id.' GROUP BY menu_id, menu_ket, menu_url, menu_order ORDER BY menu_order ASC';
+                                // echo $sql_sub_menu;
+                                $qry_sub_menu = $this->db->query($sql_sub_menu);
+                                $res_sub_menu = $qry_sub_menu->num_rows() > 0 ? $qry_sub_menu->result() : FALSE;
+
+                                if ($res_sub_menu != FALSE)
+                                {
+                                    ?>
+                                    <li class="treeview">
+                                        <a href="<?php echo site_url($menu_url); ?>">
+                                            <i class="fa fa-square-o"></i>
+                                            <span><?php echo ucwords($val_menu->menu_ket); ?></span>
+                                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <?php
+                                            foreach ($res_sub_menu as $val_sub_menu)
+                                            {
+                                                ?>
+                                                <li><a href="<?php echo site_url($val_sub_menu->menu_url); ?>"><i class="fa fa-circle-o"></i> <?php echo ucwords($val_sub_menu->menu_ket); ?></a></li>
+                                                <?php
+                                            }
+                                            ?>
+                                        </ul>
+                                    </li>
+                                    <?php
+                                }
+                                else
+                                {
+                                    ?>
+                                    <li>
+                                        <a href="<?php echo site_url($menu_url); ?>">
+                                            <?php
+                                            if ($val_menu->menu_ket === "dashboard")
+                                            {
+                                                ?>
+                                                <i class="fa fa-th"></i>
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                <i class="fa fa-square"></i>
+                                                <?php
+                                            }
+                                            ?>
+                                            <span><?php echo ucwords($val_menu->menu_ket); ?></span>
+                                        </a>
+                                    </li>
+                                    <?php
+                                }
+                            }
+                        }
+                        ?>
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        <?php echo isset($page_header) ? $page_header : "Dashboard"; ?>
+                        <small><?php echo isset($ph_description) ? $ph_description : ""; ?></small>
+                    </h1>
+                    <!-- <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                        <li class="active">Here</li>
+                    </ol> -->
+                </section>
+
+                <!-- Main content -->
+                <section class="content container-fluid">
