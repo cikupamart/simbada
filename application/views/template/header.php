@@ -16,6 +16,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="<?php echo base_url("assets/adminlte/bower_components/font-awesome/css/font-awesome.min.css"); ?>">
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo base_url("assets/adminlte/bower_components/Ionicons/css/ionicons.min.css"); ?>">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="<?php echo base_url("assets/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"); ?>">
         <!-- Theme style -->
         <link rel="stylesheet" href="<?php echo base_url("assets/adminlte/dist/css/AdminLTE.min.css"); ?>">
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -41,9 +43,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- AdminLTE App -->
         <script src="<?php echo base_url("assets/adminlte/dist/js/adminlte.min.js"); ?>"></script>
 
-        <!-- Optionally, you can add Slimscroll and FastClick plugins.
-                Both of these plugins are recommended to enhance the
-                user experience. -->
+        <!-- DataTables -->
+        <script src="<?php echo base_url("assets/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"); ?>"></script>
+        <script src="<?php echo base_url("assets/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"); ?>"></script>
     </head>
     <!--
     BODY TAG OPTIONS:
@@ -277,7 +279,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li class="header">MENU UTAMA</li>
                         <?php
                         $ur_id = $this->session->userdata('userLevel');
-                        $sql_menu = 'SELECT DISTINCT ha_menu,ha_id,ha_ur,ha_view,ha_insert,ha_update,ha_delete,ha_proses,menu_id,menu_ket,menu_parent,menu_url,menu_order FROM hak_akses LEFT JOIN menu ON ha_menu=menu_id WHERE menu_parent=0 AND ha_ur='.$ur_id.' AND ha_view=1 ORDER BY menu_order ASC';
+                        $sql_menu = 'SELECT DISTINCT ha.ha_menu,ha.id AS ha_id,ha.ha_ur,ha.ha_view,ha.ha_insert,ha.ha_update,ha.ha_delete,ha.ha_proses,m.id AS menu_id,m.menu_ket,m.menu_parent,m.menu_url,m.menu_order FROM hak_akses ha LEFT JOIN menu m ON ha.ha_menu=m.id WHERE m.menu_parent=0 AND ha.ha_ur='.$ur_id.' AND ha.ha_view=1 ORDER BY m.menu_order ASC';
                         // echo $sql_menu;
                         $qry_menu = $this->db->query($sql_menu);
                         $res_menu = $qry_menu->num_rows() > 0 ? $qry_menu->result() : FALSE;
@@ -289,7 +291,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             {
                                 $menu_url = $val_menu->menu_url === 'home' ? '' : $val_menu->menu_url;
 
-                                $sql_sub_menu = 'SELECT DISTINCT menu_id, menu_ket, menu_url, menu_order FROM hak_akses LEFT JOIN menu ON ha_menu=menu_id WHERE menu_parent='.$val_menu->menu_id.' AND ha_view=1 AND ha_ur='.$ur_id.' GROUP BY menu_id, menu_ket, menu_url, menu_order ORDER BY menu_order ASC';
+                                $sql_sub_menu = 'SELECT DISTINCT m.id AS menu_id, m.menu_ket, m.menu_url, m.menu_order FROM hak_akses ha LEFT JOIN menu m ON ha.ha_menu=m.id WHERE m.menu_parent='.$val_menu->menu_id.' AND ha.ha_view=1 AND ha.ha_ur='.$ur_id.' GROUP BY m.id, m.menu_ket, m.menu_url, m.menu_order ORDER BY m.menu_order ASC';
                                 // echo $sql_sub_menu;
                                 $qry_sub_menu = $this->db->query($sql_sub_menu);
                                 $res_sub_menu = $qry_sub_menu->num_rows() > 0 ? $qry_sub_menu->result() : FALSE;
@@ -354,8 +356,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        <?php echo isset($page_header) ? $page_header : "Dashboard"; ?>
-                        <small><?php echo isset($ph_description) ? $ph_description : ""; ?></small>
+                        <?php echo isset($ph) ? $ph : "Dashboard"; ?>
+                        <small><?php echo isset($phd) ? $phd : ""; ?></small>
                     </h1>
                     <!-- <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
