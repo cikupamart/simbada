@@ -274,22 +274,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu" data-widget="tree">
-                        <li class="header">HEADER</li>
-                        <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-                        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Link in level 2</a></li>
-                                <li><a href="#">Link in level 2</a></li>
-                            </ul>
-                        </li>
-
+                        <li class="header">MENU UTAMA</li>
                         <?php
                         $ur_id = $this->session->userdata('userLevel');
                         $sql_menu = 'SELECT DISTINCT ha_menu,ha_id,ha_ur,ha_view,ha_insert,ha_update,ha_delete,ha_proses,menu_id,menu_ket,menu_parent,menu_url,menu_order FROM hak_akses LEFT JOIN menu ON ha_menu=menu_id WHERE menu_parent=0 AND ha_ur='.$ur_id.' AND ha_view=1 ORDER BY menu_order ASC';
@@ -340,7 +325,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             if ($val_menu->menu_ket === "dashboard")
                                             {
                                                 ?>
-                                                <i class="fa fa-th"></i>
+                                                <i class="fa fa-dashboard"></i>
                                                 <?php
                                             }
                                             else
