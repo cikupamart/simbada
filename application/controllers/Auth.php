@@ -31,14 +31,10 @@ class Auth extends CI_Controller
 			if($query !== FALSE)
 			{
 				$data = array(
-					'userId' => $query->user_id,
-					'userName' => $query->user_name,
-                    'userAppId'=> $query->app_id,
-                    'userFlag' => $query->flag,
-                    'userAktif' => $query->aktif,
-                    'userLevel' => $query->user_level,
-                    'levelDesc' => $query->level_desc,
-					'userApp' => $query->app,
+					'userId' => $query->id_users,
+					'userName' => $query->users_name,
+                    'userLevel' => $query->users_ur,
+                    'levelDesc' => $query->ur_ket,
 					'is_logged_in' => TRUE
 				);
 
