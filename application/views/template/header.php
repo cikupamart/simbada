@@ -227,7 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="<?php echo site_url("auth/logout"); ?>" class="btn btn-default btn-flat">Log out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -257,7 +257,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="pull-left info">
                             <p><?php echo ucwords($this->session->userdata('userName')); ?></p>
                             <!-- Status -->
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
                         </div>
                     </div>
 
