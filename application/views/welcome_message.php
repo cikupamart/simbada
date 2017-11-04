@@ -2,9 +2,10 @@
 
 <div class="box box-solid box-primary">
 	<div class="box-header with-border">
-		<h3 class="box-title">Welcome to CodeIgniter!</h3>
-		<div class="box-tools pull-right">
-		</div>
+		<h3 class="box-title"><?php echo isset($bt) ? $bt : ""; ?></h3>
+        <div class="box-tools pull-right">
+                <?php echo isset($pr) ? $pr : "";?>
+        </div>
 	</div>
 	<div class="box-body">
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>

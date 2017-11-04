@@ -12,11 +12,12 @@ class Welcome extends CI_Controller
 	public function index()
 	{
 		// Data untuk title header
-		$data_header["title"] = "Dashboard";
+		$data["title"] = "Dashboard";
+		$data["bt"] = "Welcome to CodeIgniter!";
 		// END Data untuk title header
 
-		$this->load->view('template/header', $data_header);
-		$this->load->view("welcome_message");
+		$this->load->view('template/header', $data);
+		$this->load->view("welcome_message", $data);
 		$this->load->view('template/footer');
 	}
 
