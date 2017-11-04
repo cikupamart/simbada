@@ -19,14 +19,14 @@ class Auth_model extends CI_Model
 
         $this->db->select("u.id AS id_users, u.users_name, u.users_password, u.users_email, u.users_ur, ur.ur_ket");
         $this->db->join('users_role ur','u.users_ur=ur.id','left');
-        $this->db->where('ur.users_name', $username);
+        $this->db->where('u.users_name', $username);
         $this->db->where("u.users_active", 1);
         $query = $this->db->get('users u');
         // echo $this->db->last_query();exit;
         $row_user = $query->num_rows() > 0 ? $query->row() : FALSE;
         if ($row_user !== FALSE)
         {
-            if (password_verify($userpassword,$row_user->user_password))
+            if (password_verify($userpassword,$row_user->users_password))
             {
                 return $query->row();
                 // return array("user_id"=>$row_user->user_id,"user_name"=>$row_user->user_name,"user_email"=>$row_user->user_email);
