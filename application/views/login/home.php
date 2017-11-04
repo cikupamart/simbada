@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     -->
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat" name="btn_login" value="btn_login">Login</button>
                 </form>
 
                 <!-- <div class="social-auth-links text-center">
