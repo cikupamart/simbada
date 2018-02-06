@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$menu_id = isset($res_menu) ? $res_menu->menu_id : "";
+$menu_id = isset($res_menu) ? $res_menu->id : "";
 $menu_ket = isset($res_menu) ? $res_menu->menu_ket : "";
 $menu_parent = isset($res_menu) ? $res_menu->menu_parent : "";
 $menu_url = isset($res_menu) ? $res_menu->menu_url : "";
@@ -45,7 +45,7 @@ $btn = isset($res_menu) ? "ubah" : "simpan";
                             {
                                 $sel_mc = $val_menu_child->menu_id == $menu_parent ? "selected=\"selected\"" : "";
                                 ?>
-                                <option value="<?php echo $val_menu_child->menu_id; ?>" <?php echo $sel_mc; ?>><?php echo ucwords($val_menu_child->menu_ket); ?></option>
+                                <option value="<?php echo $val_menu_child->id; ?>" <?php echo $sel_mc; ?>><?php echo ucwords($val_menu_child->menu_ket); ?></option>
                                 <?php
                             }
                         }
@@ -116,12 +116,12 @@ $btn = isset($res_menu) ? "ubah" : "simpan";
                         $checked_proses = $ha_proses === "1" ? "checked=\"checked\"" : "";
                         ?>
                         <tr>
-                            <td><?php echo ucwords($val_ur->level_desc); ?></td>
-                            <td><input type="checkbox" name="chk_view[<?php echo $val_ur->level_id; ?>]" class="view" value="1" <?php echo $checked_view; ?>></td>
-                            <td><input type="checkbox" name="chk_insert[<?php echo $val_ur->level_id; ?>]" class="insert" value="1" <?php echo $checked_insert; ?>></td>
-                            <td><input type="checkbox" name="chk_update[<?php echo $val_ur->level_id; ?>]" class="update" value="1" <?php echo $checked_update; ?>></td>
-                            <td><input type="checkbox" name="chk_delete[<?php echo $val_ur->level_id; ?>]" class="delete" value="1" <?php echo $checked_delete; ?>></td>
-                            <input type="hidden" name="level_id[<?php echo $val_ur->level_id; ?>]" value="<?php echo $val_ur->level_id; ?>" <?php echo $checked_view; ?>>
+                            <td><?php echo ucwords($val_ur->ur_ket); ?></td>
+                            <td><input type="checkbox" name="chk_view[<?php echo $val_ur->id; ?>]" class="view" value="1" <?php echo $checked_view; ?>></td>
+                            <td><input type="checkbox" name="chk_insert[<?php echo $val_ur->id; ?>]" class="insert" value="1" <?php echo $checked_insert; ?>></td>
+                            <td><input type="checkbox" name="chk_update[<?php echo $val_ur->id; ?>]" class="update" value="1" <?php echo $checked_update; ?>></td>
+                            <td><input type="checkbox" name="chk_delete[<?php echo $val_ur->id; ?>]" class="delete" value="1" <?php echo $checked_delete; ?>></td>
+                            <input type="hidden" name="level_id[<?php echo $val_ur->id; ?>]" value="<?php echo $val_ur->id; ?>" <?php echo $checked_view; ?>>
                         </tr>
                         <?php
                     }

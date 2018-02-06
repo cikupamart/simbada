@@ -16,16 +16,16 @@ class Menu extends CI_Controller
 
     function index()
     {
-        $data["title"] = $this->ch; /* Content Header */
+        $this->template->set("title", $this->ch);
         $data["ph"] = $this->ch;
         $data["modul"] = $this->modul;
 		$data["bt"]= "List Menu"; /* Box Title */
         $data["pr"] = "<a href=\"".site_url($this->modul.'/tambah_data')."\" class=\"btn btn-primary btn-sm\">Tambah Data</a>
         <button type=\"button\" title=\"Refresh\" onclick=\"reload_table();\" class=\"btn btn-primary btn-sm\">Refresh</button>";
 
-		$this->load->view('template/header', $data);
-        $this->load->view($this->modul.'/home', $data);
-		$this->load->view('template/footer', $data);
+        $this->template->set("title", $this->ch);
+
+        $this->template->load("template/template", $this->modul."/home", $data);
     }
 
     public function ajax_list()
@@ -36,11 +36,11 @@ class Menu extends CI_Controller
         foreach ($list as $menu) {
             $no++;
             $row = array();
-            $row[] = '<div class="uk-text-center">'.$no.'</div>';
-            $row[] = $menu->menu_ket;
-            $row[] = $menu->menu_ket_parent;
+            $row[] = '<div class="text-center">'.$no.'</div>';
+            $row[] = ucwords($menu->menu_ket);
+            $row[] = ucwords($menu->menu_ket_parent);
             $row[] = $menu->menu_url;
-            $row[] = "<div class=\"uk-text-center\">".$menu->menu_order."</div>";
+            $row[] = "<div class=\"text-center\">".$menu->menu_order."</div>";
             $row[] = "<div class=\"text-center\">
                     <a href=\"".site_url($this->modul."/edit_data/".$menu->menu_id)."\" class=\"btn btn-primary btn-flat btn-xs\">Edit</a>
                     <button type=\"button\" title=\"Hapus Data\" class=\"btn btn-primary btn-flat btn-xs\" onClick=\"deleteItem('".$menu->menu_id."','".$menu->menu_ket."');\">Delete</button></div>";
@@ -62,6 +62,7 @@ class Menu extends CI_Controller
     {
         $this->_chk_insert();
 
+        $data["title"] = "Tambah Menu";
         $data['ch'] = $this->ch;
         $data["cho"] = "Tambah Data";
         $data["bt"] = "Form Menu";
@@ -229,7 +230,7 @@ class Menu extends CI_Controller
         $arr_where["ha_ur"] = $this->session->userdata("userLevel");
         $arr_where["menu_url"] = $this->modul;
 
-        $result = $this->am->get_ha("ha_insert", $arr_where);
+        $result = $this->am->get_ha("ha.ha_insert", $arr_where);
         // var_dump($result);echo $result;exit;
         if ($result->ha_insert === "0" OR $result === FALSE)
         {

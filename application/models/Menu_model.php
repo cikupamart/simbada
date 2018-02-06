@@ -15,9 +15,9 @@ class Menu_model extends CI_Model
 
     private function _get_datatables_query($post)
     {
-        $this->db->select('a.menu_id, a.menu_ket, a.menu_parent, b.menu_ket AS menu_ket_parent, a.menu_url, a.menu_order');
+        $this->db->select('a.id AS menu_id, a.menu_ket, a.menu_parent, b.menu_ket AS menu_ket_parent, a.menu_url, a.menu_order');
         $this->db->from($this->table." a");
-        $this->db->join($this->table." b", 'b.menu_id=a.menu_parent', 'left');
+        $this->db->join($this->table." b", 'b.id=a.menu_parent', 'left');
 
         $i = 0;
 
@@ -78,33 +78,33 @@ class Menu_model extends CI_Model
 
     function get_menu_by_id($id)
     {
-        $this->db->where('menu_id', $id);
-        $qry = $this->db->get('menu');
+        $this->db->where('id', $id);
+        $qry = $this->db->get($this->table);
         return $qry->num_rows() > 0 ? $qry->row() : FALSE;
     }
 
     function get_menu_child()
     {
         $this->db->where('menu_parent', 0);
-        $qry = $this->db->get('menu');
+        $qry = $this->db->get($this->table);
         return $qry->num_rows() > 0 ? $qry->result() : FALSE;
     }
 
     function get_ur()
     {
-        $qry = $this->db->get('mt_level');
+        $qry = $this->db->get('users_role');
         return $qry->num_rows() > 0 ? $qry->result() : FALSE;
     }
 
     function save_menu($data)
     {
-        $this->db->insert('menu', $data);
+        $this->db->insert($this->table, $data);
     }
 
     function update_menu($id, $data)
     {
-        $this->db->where('menu_id', $id);
-        $this->db->update('menu', $data);
+        $this->db->where('id', $id);
+        $this->db->update($this->table, $data);
     }
 
     function save_ha($data)
@@ -135,15 +135,15 @@ class Menu_model extends CI_Model
             $this->db->where($where);
         }
 
-        $qry = $this->db->get('menu');
+        $qry = $this->db->get($this->table);
         return $qry->num_rows() > 0 ? $qry->row() : FALSE;
     }
 
     function delete_menu($id)
     {
         // delete di table menu
-        $this->db->where('menu_id', $id);
-        $this->db->delete('menu');
+        $this->db->where('id', $id);
+        $this->db->delete($this->table);
 
         // delete di table hak akses
         $this->db->where('ha_menu', $id);

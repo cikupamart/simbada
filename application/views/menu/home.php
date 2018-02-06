@@ -9,21 +9,21 @@
     </div>
     <div class="box-body">
 
-<table id="table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Menu Ket</th>
-            <th>Menu Parent</th>
-            <th>Menu URL</th>
-            <th>Menu Order</th>
-            <th style="width:150px;">Action</th>
-        </tr>
-    </thead>
+        <table id="table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Menu Ket</th>
+                    <th class="text-center">Menu Parent</th>
+                    <th class="text-center">Menu URL</th>
+                    <th class="text-center">Menu Order</th>
+                    <th class="text-center" style="width:150px;">Action</th>
+                </tr>
+            </thead>
 
-    <tbody>
-    </tbody>
-</table>
+            <tbody>
+            </tbody>
+        </table>
 
     </div>
 </div>
