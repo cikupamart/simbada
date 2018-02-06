@@ -9,8 +9,8 @@ class Menu extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        // $this->_chk_auth();
-		// $this->_chk_view();
+        $this->template->chk_auth();
+		$this->template->chk_view($this->modul);
         $this->load->model('menu_model','mm');
     }
 
@@ -60,45 +60,48 @@ class Menu extends CI_Controller
 
     function tambah_data()
     {
-        $this->_chk_insert();
+        $this->template->chk_insert($this->modul);
 
-        $data["title"] = "Tambah Menu";
+        $this->template->set("title", $this->modul);
+
         $data['ch'] = $this->ch;
         $data["cho"] = "Tambah Data";
         $data["bt"] = "Form Menu";
-        $data["pr"] = "<a href=\"".site_url("mt_user_level")."\" class=\"btn btn-primary btn-sm\">Tambah User Level</a>
+        $data["pr"] = "<a href=\"".site_url("user_level")."\" class=\"btn btn-primary btn-sm\">Tambah User Level</a>
         <a href=\"". site_url($this->modul)."\" class=\"btn btn-primary btn-sm\">List Menu</a>";
+
         $data['res_menu_child'] = $this->mm->get_menu_child();
         $data['res_ur'] = $this->mm->get_ur();
-        $this->load->view('template/header', $data);
-        $this->load->view($this->modul.'/form', $data);
-        $this->load->view('template/footer', $data);
+        
+        $this->template->load("template/template", $this->modul."/form", $data);
     }
 
     function edit_data($id)
     {
-        $this->_chk_update();
+        $this->template->chk_update($this->modul);
 
         if ( ! is_null($id))
         {
+            $this->template->set("title",$this->modul);
+
             $data['ch'] = $this->ch;
             $data["cho"] = "Edit Data";
             $data["bt"] = "Form Menu";
-            $data["pr"] = "<a href=\"".site_url("mt_user_level")."\" class=\"btn btn-primary btn-sm\">Tambah Menu</a>
-            <a href=\"".site_url("mt_user_level")."\" class=\"btn btn-primary btn-sm\">Tambah User Level</a>
+            $data["pr"] = "<a href=\"".site_url($this->modul."/tambah_data")."\" class=\"btn btn-primary btn-sm\">Tambah Menu</a>
+            <a href=\"".site_url("user_level")."\" class=\"btn btn-primary btn-sm\">Tambah User Level</a>
             <a href=\"". site_url($this->modul)."\" class=\"btn btn-primary btn-sm\">List Menu</a>";
+
             $data['res_menu'] = $this->mm->get_menu_by_id($id);
             $data['res_menu_child'] = $this->mm->get_menu_child();
             $data['res_ur'] = $this->mm->get_ur();
-            $this->load->view('template/header', $data);
-            $this->load->view($this->modul.'/form', $data);
-            $this->load->view('template/footer', $data);
+
+            $this->template->load("template/template",$this->modul."/form",$data);
         }
     }
 
     function hapus_data($id)
     {
-        $this->_chk_delete();
+        $this->template->chk_delete($this->modul);
 
         // hapus di table menu
         $this->mm->delete_menu($id);
@@ -129,7 +132,7 @@ class Menu extends CI_Controller
         // simpan data baru
         if ($this->input->post('simpan') === "simpan")
         {
-            $this->_chk_insert();
+            $this->template->chk_insert($this->modul);
 
             // simpan ke table menu
             // echo $sql = $this->db->set($data_menu)->get_compiled_insert('mytable');exit;
@@ -156,7 +159,7 @@ class Menu extends CI_Controller
         // update data
         elseif ($this->input->post('simpan') === "ubah")
         {
-            $this->_chk_update();
+            $this->template->chk_update($this->modul);
 
             // ubah data table menu
             // echo $sql = $this->db->set($data_menu)->where("menu_id", $menu_id)->get_compiled_update('mytable');
@@ -199,70 +202,5 @@ class Menu extends CI_Controller
             redirect($this->modul);
         }
 
-    }
-
-    private function _chk_auth()
-	{
-		if ($this->session->userdata('is_logged_in') !== TRUE)
-		{
-			redirect("auth", "refresh");
-		}
-	}
-
-	private function _chk_view()
-	{
-		$this->load->model('auth_model', 'am');
-		$arr_where["ha_ur"] = $this->session->userdata("userLevel");
-		$arr_where["menu_url"] = $this->modul;
-
-		$result = $this->am->get_ha("ha_view", $arr_where);
-		// var_dump($result);
-
-		if ($result->ha_view === "0" OR $result === FALSE)
-		{
-			redirect("auth");
-		}
-	}
-
-    private function _chk_insert()
-    {
-        $this->load->model('auth_model', 'am');
-        $arr_where["ha_ur"] = $this->session->userdata("userLevel");
-        $arr_where["menu_url"] = $this->modul;
-
-        $result = $this->am->get_ha("ha.ha_insert", $arr_where);
-        // var_dump($result);echo $result;exit;
-        if ($result->ha_insert === "0" OR $result === FALSE)
-        {
-            redirect($this->modul);
-        }
-    }
-
-    private function _chk_update()
-    {
-        $this->load->model('auth_model', 'am');
-        $arr_where["ha_ur"] = $this->session->userdata("userLevel");
-        $arr_where["menu_url"] = $this->modul;
-
-        $result = $this->am->get_ha("ha_update", $arr_where);
-        // var_dump($result);echo $result;exit;
-        if ($result->ha_update === "0" OR $result === FALSE)
-        {
-            redirect($this->modul);
-        }
-    }
-
-    private function _chk_delete()
-    {
-        $this->load->model('auth_model', 'am');
-        $arr_where["ha_ur"] = $this->session->userdata("userLevel");
-        $arr_where["menu_url"] = $this->modul;
-
-        $result = $this->am->get_ha("ha_delete", $arr_where);
-        // var_dump($result);echo $result;exit;
-        if ($result->ha_delete === "0" OR $result === FALSE)
-        {
-            redirect($this->modul);
-        }
     }
 }
