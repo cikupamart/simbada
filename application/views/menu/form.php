@@ -18,7 +18,7 @@ $btn = isset($res_menu) ? "ubah" : "simpan";
     </div>
     <div class="box-body">
 
-        <form class="form-horizontal" action="<?php echo site_url('mt_menu/simpan'); ?>" method="post">
+        <form class="form-horizontal" action="<?php echo site_url($modul.'/simpan'); ?>" method="post">
             <input type="hidden" name="menu_id" value="<?php echo $menu_id; ?>">
             <div class="form-group">
                 <label for="menu_ket" class="control-label col-sm-2">Menu Ket</label>

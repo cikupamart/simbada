@@ -17,7 +17,6 @@ class Menu extends CI_Controller
     function index()
     {
         $this->template->set("title", $this->ch);
-        $data["ph"] = $this->ch;
         $data["modul"] = $this->modul;
 		$data["bt"]= "List Menu"; /* Box Title */
         $data["pr"] = "<a href=\"".site_url($this->modul.'/tambah_data')."\" class=\"btn btn-primary btn-sm\">Tambah Data</a>
@@ -64,6 +63,7 @@ class Menu extends CI_Controller
 
         $this->template->set("title", $this->modul);
 
+        $data["modul"] = $this->modul;
         $data['ch'] = $this->ch;
         $data["cho"] = "Tambah Data";
         $data["bt"] = "Form Menu";
