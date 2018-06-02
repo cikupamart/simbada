@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$bidang_id = isset($res_provinsi) ? $res_provinsi->bidang_id : "";
-$bidang_kode = isset($res_provinsi) ? $res_provinsi->bidang_kode : "";
-$bidang_ket = isset($res_provinsi) ? $res_provinsi->bidang_ket : "";
-$btn = isset($res_provinsi) ? "ubah" : "simpan";
+$bidang_id = isset($res_bidang) ? $res_bidang->bidang_id : "";
+$bidang_kode = isset($res_bidang) ? $res_bidang->bidang_kode : "";
+$bidang_ket = isset($res_bidang) ? $res_bidang->bidang_ket : "";
+$btn = isset($res_bidang) ? "ubah" : "simpan";
 ?>
 
 <div class="box box-success">
