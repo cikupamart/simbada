@@ -75,6 +75,6 @@ function deleteItem(i,a)
 
 function reload_table()
 {
-    table.ajax.reload(null,false); //reload datatable ajax
+    $('#table').DataTable().ajax.reload(); //reload datatable ajax
 }
 </script>
