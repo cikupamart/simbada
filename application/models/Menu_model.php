@@ -104,12 +104,6 @@ class Menu_model extends CI_Model
       return $qry->num_rows() > 0 ? $qry->result() : FALSE;
     }
 
-    function get_ur()
-    {
-      $qry = $this->db->get('users_role');
-      return $qry->num_rows() > 0 ? $qry->result() : FALSE;
-    }
-
     function save_menu($data)
     {
       $this->db->insert($this->table, $data);

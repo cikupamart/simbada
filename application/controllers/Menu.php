@@ -12,6 +12,7 @@ class Menu extends CI_Controller
     $this->template->chk_auth();
 		$this->template->chk_view($this->modul);
     $this->load->model('menu_model','mm');
+    $this->load->model('users_role_model','urm');
   }
 
   function index()
@@ -71,7 +72,7 @@ class Menu extends CI_Controller
     <a href=\"". site_url($this->modul)."\" class=\"btn btn-primary btn-sm\">List Menu</a>";
 
     $data['res_menu_child'] = $this->mm->get_menu_child();
-    $data['res_ur'] = $this->mm->get_ur();
+    $data['res_ur'] = $this->urm->get_data()->result();
 
     $this->template->load("template/template", $this->modul."/form", $data);
   }
@@ -94,7 +95,7 @@ class Menu extends CI_Controller
       $where["menu_id"] = $id;
       $data['res_menu'] = $this->mm->get_data($where)->row();
       $data['res_menu_child'] = $this->mm->get_menu_child();
-      $data['res_ur'] = $this->mm->get_ur();
+      $data['res_ur'] = $this->urm->get_data()->result();
       $data["modul"] = $this->modul;
 
       $this->template->load("template/template",$this->modul."/form",$data);
