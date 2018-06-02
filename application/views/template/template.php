@@ -108,14 +108,14 @@ desired effect
 
                 <p>
                   <?php echo ucwords($this->session->userdata("userName")); ?> - <?php echo ucwords($this->session->userdata("levelDesc")); ?>
-                  <small>Member since Nov. 2012</small>
+                  <small>Didaftarkan pada <?php echo $this->session->userdata('userInsertDate'); ?></small>
                 </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-12 text-center">
-                    <a href="#">Nama SKPD</a>
+                    <a href="#"><?php echo $this->session->userdata('lokasiKet'); ?></a>
                   </div>
                 </div>
                 <!-- /.row -->
@@ -149,7 +149,7 @@ desired effect
         <div class="pull-left info">
           <p><?php echo ucwords($this->session->userdata("userName")); ?></p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Kode SKPD</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $this->session->userdata('lokasiKode'); ?></a>
         </div>
       </div>
 

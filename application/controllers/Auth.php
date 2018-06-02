@@ -40,6 +40,9 @@ class Auth extends CI_Controller
   				'userEmail' => $query->user_email,
           'userLevel' => $query->user_ur,
           'userLokasi' => $query->user_lokasi,
+          'userInsertDate' => $query->user_insert_date,
+          'lokasiKode' => $query->lokasi_kode,
+          'lokasiKet' => $query->lokasi_ket,
           'levelDesc' => $query->ur_ket,
   				'is_logged_in' => TRUE
   			);

@@ -35,8 +35,9 @@ class Auth_model extends CI_Model
     // $hashAndSalt = $this->get_password($username);
     // $password_hash = password_hash($userpassword, PASSWORD_BCRYPT, array("cost" => 12));
 
-    $this->db->select("u.user_id, u.user_username, u.user_password, u.user_nama, u.user_nip, u.user_email, u.user_ur, u.user_lokasi, ur.ur_ket");
+    $this->db->select("u.user_id, u.user_username, u.user_password, u.user_nama, u.user_nip, u.user_email, u.user_ur, u.user_lokasi, u.user_insert_date, ur.ur_ket, lokasi_kode, lokasi_ket");
     $this->db->join('users_role ur','u.user_ur=ur.ur_id','left');
+    $this->db->join('lokasi l','u.user_lokasi=l.lokasi_id','left');
     $this->db->where('u.user_username', $username);
     $this->db->where("u.user_active", 1);
     $query = $this->db->get($this->table.' u');
