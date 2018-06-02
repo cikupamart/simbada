@@ -115,7 +115,7 @@ desired effect
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-12 text-center">
-                    <a href="#"><?php echo $this->session->userdata('lokasiKet'); ?></a>
+                    <a href="#"><?php echo $this->session->userdata('lokasiKode'); ?></a>
                   </div>
                 </div>
                 <!-- /.row -->
@@ -149,7 +149,7 @@ desired effect
         <div class="pull-left info">
           <p><?php echo ucwords($this->session->userdata("userName")); ?></p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $this->session->userdata('lokasiKode'); ?></a>
+          <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $this->session->userdata('lokasiKet'); ?></a>
         </div>
       </div>
 
