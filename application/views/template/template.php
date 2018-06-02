@@ -91,7 +91,7 @@ desired effect
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          
+
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -173,7 +173,7 @@ desired effect
 
         <?php
         $ur_id = $this->session->userdata("userLevel");
-        $sql_menu = 'SELECT m.id AS menu_id, m.menu_ket, m.menu_url FROM hak_akses ha LEFT JOIN menu m ON ha.ha_menu=m.id WHERE m.menu_parent=0 AND ha.ha_ur='.$ur_id.' AND ha.ha_view=1 ORDER BY m.menu_order ASC';
+        $sql_menu = 'SELECT m.menu_id, m.menu_ket, m.menu_url FROM hak_akses ha LEFT JOIN menu m ON ha.ha_menu=m.menu_id WHERE m.menu_parent=0 AND ha.ha_ur='.$ur_id.' AND ha.ha_view=1 ORDER BY m.menu_order ASC';
         $qry_menu = $this->db->query($sql_menu);
         $res_menu = $qry_menu->num_rows() > 0 ? $qry_menu->result() : FALSE;
 
@@ -182,8 +182,8 @@ desired effect
           foreach ($res_menu as $val_menu)
           {
             $menu_url = $val_menu->menu_url === 'home' ? '' : $val_menu->menu_url;
-            
-            $sql_sub_menu = 'SELECT m.id AS menu_id, m.menu_ket, m.menu_url, m.menu_order FROM hak_akses ha LEFT JOIN menu m ON ha.ha_menu = m.id WHERE m.menu_parent='.$val_menu->menu_id.' AND ha.ha_view=1 AND ha.ha_ur='.$ur_id.' GROUP BY m.id, m.menu_ket, m.menu_url, m.menu_order ORDER BY m.menu_order ASC';
+
+            $sql_sub_menu = 'SELECT m.menu_id AS menu_id, m.menu_ket, m.menu_url, m.menu_order FROM hak_akses ha LEFT JOIN menu m ON ha.ha_menu = m.menu_id WHERE m.menu_parent='.$val_menu->menu_id.' AND ha.ha_view=1 AND ha.ha_ur='.$ur_id.' GROUP BY m.menu_id, m.menu_ket, m.menu_url, m.menu_order ORDER BY m.menu_order ASC';
 
             $qry_sub_menu = $this->db->query($sql_sub_menu);
             $res_sub_menu = $qry_sub_menu->num_rows() > 0 ? $qry_sub_menu->result() : FALSE;
