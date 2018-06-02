@@ -11,7 +11,23 @@ class Auth_model extends CI_Model
 
   function __construct()
   {
-      parent::__construct();
+    parent::__construct();
+  }
+
+  function get_ha($select, $where = NULL)
+  {
+    if ($where !== NULL)
+    {
+      foreach ($where as $key => $val)
+      {
+        $this->db->where($key, $val);
+      }
+    }
+
+    $this->db->select($select);
+    $this->db->join('hak_akses ha', 'ha.ha_menu = m.menu_id', 'left');
+    // echo $this->db->get_compiled_select('menu m');exit;
+    return $this->db->get('menu m');
   }
 
   function validate($username, $userpassword)
