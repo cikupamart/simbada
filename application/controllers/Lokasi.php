@@ -37,7 +37,7 @@ class Lokasi extends CI_Controller
       $row = array();
       $row[] = '<div class="text-center">'.$no.'</div>';
       $row[] = $rw->lokasi_kode;
-      $row[] = ucwords($rw->lokasi_ket);
+      $row[] = strtoupper($rw->lokasi_ket);
       $row[] = "<div class=\"text-center\">
               <a href=\"".site_url($this->modul."/edit_data/".$rw->lokasi_id)."\" class=\"btn btn-primary btn-flat btn-xs\">Edit</a>
               <button type=\"button\" title=\"Hapus Data\" class=\"btn btn-primary btn-flat btn-xs\" onClick=\"deleteItem('".$rw->lokasi_id."','".$rw->lokasi_ket."');\">Delete</button></div>";
