@@ -36,6 +36,13 @@
       <div class="login-box-body">
         <p class="login-box-msg">Silahkan Login untuk Memulai Aplikasi SIMBADA</p>
 
+        <?php
+        if ( ! is_null($this->session->flashdata("msg_login")))
+        {
+          echo "<div class=\"alert alert-danger\" role=\"alert\">".$this->session->flashdata("msg_login")."</div>";
+        }
+        ?>
+
         <form action="<?php echo site_url("auth/validate_credential"); ?>" method="post">
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="User Name" name="txt_user_name" autofocus="autofocus">
