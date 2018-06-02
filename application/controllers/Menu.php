@@ -104,12 +104,19 @@ class Menu extends CI_Controller
 
   function hapus_data($id)
   {
-    $this->template->chk_delete($this->modul);
+    if ( ! is_null($id) AND $id != NULL)
+    {
+      $this->template->chk_delete($this->modul);
 
-    // hapus di table menu
-    $this->mm->delete_menu($id);
+      // hapus di table menu
+      $this->mm->delete_menu($id);
 
-    redirect($this->modul);
+      redirect($this->modul);
+    }
+    else
+    {
+      redirect($this->modul);
+    }
   }
 
   function simpan()
