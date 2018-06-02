@@ -67,7 +67,7 @@ class Menu extends CI_Controller
     $data["modul"] = $this->modul;
     $data['ch'] = $this->ch;
     $data["cho"] = "Tambah Data";
-    $data["bt"] = "Form Menu";
+    $data["bt"] = "Form Tambah";
     $data["pr"] = "<a href=\"".site_url("user_level")."\" class=\"btn btn-primary btn-sm\">Tambah User Level</a>
     <a href=\"". site_url($this->modul)."\" class=\"btn btn-primary btn-sm\">List Menu</a>";
 
@@ -87,7 +87,7 @@ class Menu extends CI_Controller
 
       $data['ch'] = $this->ch;
       $data["cho"] = "Edit Data";
-      $data["bt"] = "Form Menu";
+      $data["bt"] = "Form Edit";
       $data["pr"] = "<a href=\"".site_url($this->modul."/tambah_data")."\" class=\"btn btn-primary btn-sm\">Tambah Menu</a>
       <a href=\"".site_url("user_level")."\" class=\"btn btn-primary btn-sm\">Tambah User Level</a>
       <a href=\"". site_url($this->modul)."\" class=\"btn btn-primary btn-sm\">List Menu</a>";
