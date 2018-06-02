@@ -117,7 +117,7 @@ class Menu_model extends CI_Model
 
     function update_menu($id, $data)
     {
-      $this->db->where('id', $id);
+      $this->db->where('menu_id', $id);
       $this->db->update($this->table, $data);
     }
 
