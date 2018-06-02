@@ -94,7 +94,7 @@ $btn = isset($res_users) ? "ubah" : "simpan";
               <select class="form-control" name="user_ur">
                 <option value="">Pilih Role</option>
                 <?php
-                if ( ! empty($res_ur))
+                if ($res_ur == NULL)
                 {
                   foreach ($res_ur as $val_ur)
                   {
@@ -119,7 +119,7 @@ $btn = isset($res_users) ? "ubah" : "simpan";
               <select class="form-control" name="user_lokasi">
                 <option value="">Pilih Lokasi</option>
                 <?php
-                if ( ! empty($res_lokasi))
+                if ($res_lokasi == NULL)
                 {
                   foreach ($res_lokasi as $val_lokasi)
                   {
