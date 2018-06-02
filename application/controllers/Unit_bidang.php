@@ -39,6 +39,7 @@ class Unit_bidang extends CI_Controller
       $row[] = '<div class="text-center">'.$no.'</div>';
       $row[] = $rw->unit_bidang_kode;
       $row[] = strtoupper($rw->unit_bidang_ket);
+      $row[] = strtoupper($rw->bidang_ket);
       $row[] = "<div class=\"text-center\">
               <a href=\"".site_url($this->modul."/edit_data/".$rw->unit_bidang_id)."\" class=\"btn btn-primary btn-flat btn-xs\">Edit</a>
               <button type=\"button\" title=\"Hapus Data\" class=\"btn btn-primary btn-flat btn-xs\" onClick=\"deleteItem('".$rw->unit_bidang_id."','".$rw->unit_bidang_ket."');\">Delete</button></div>";

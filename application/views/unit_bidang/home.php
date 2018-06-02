@@ -15,6 +15,7 @@
           <th class="text-center">No</th>
           <th class="text-center">Kode</th>
           <th class="text-center">Ket</th>
+          <th class="text-center">Bidang</th>
           <th class="text-center" style="width:150px;">Action</th>
         </tr>
       </thead>

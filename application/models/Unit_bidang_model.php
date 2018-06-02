@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Unit_bidang_model extends CI_Model
 {
     var $table = 'kode_unit_bidang';
-    var $column_order = array(null, 'unit_bidang_kode','unit_bidang_ket');
-    var $column_search = array('unit_bidang_kode', 'unit_bidang_ket');
+    var $column_order = array(null, 'unit_bidang_kode','unit_bidang_ket', 'bidang_ket');
+    var $column_search = array('unit_bidang_kode', 'unit_bidang_ket', 'bidang_ket');
     var $order = array('unit_bidang_id' => 'desc');
 
     public function __construct()
@@ -15,7 +15,7 @@ class Unit_bidang_model extends CI_Model
 
     private function _get_datatables_query($post)
     {
-      $this->db->from($this->table);
+      $this->db->from("v_unit_bidang");
 
       $i = 0;
 
