@@ -105,10 +105,17 @@ class Pemilik_barang extends CI_Controller
       $where["pb_id"] = $id;
       $this->pbm->delete_data($where);
 
+      $pb_ket = $this->mm->get_data(array("pb_id"=>$id))->row()->pb_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($pb_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $pb_ket = $this->mm->get_data(array("pb_id"=>$id))->row()->pb_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($pb_ket);
       redirect($this->modul);
     }
   }
@@ -132,6 +139,10 @@ class Pemilik_barang extends CI_Controller
         $data["pb_insert_date"] = date("Y-m-d H:i:s");
         $this->pbm->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($pb_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -142,6 +153,10 @@ class Pemilik_barang extends CI_Controller
         $data["pb_update_date"] = date("Y-m-d H:i:s");
         $where["pb_id"] = $pb_id;
         $this->pbm->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($pb_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

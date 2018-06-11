@@ -80,10 +80,10 @@ class Template
 		$this->CI =& get_instance();
 
 		$this->CI->load->model('auth_model', 'am');
-		$arr_where["ha_ur"] = $this->CI->session->userdata("userLevel")->row();
+		$arr_where["ha_ur"] = $this->CI->session->userdata("userLevel");
 		$arr_where["menu_url"] = $modul;
 
-		$result = $this->CI->am->get_ha("ha_delete", $arr_where);
+		$result = $this->CI->am->get_ha("ha_delete", $arr_where)->row();
 		// var_dump($result);echo $result;exit;
 		if ($result->ha_delete === "0" OR $result === FALSE)
 		{

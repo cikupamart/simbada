@@ -105,10 +105,17 @@ class Lokasi extends CI_Controller
       $where["lokasi_id"] = $id;
       $this->lm->delete_data($where);
 
+      $lokasi_ket = $this->mm->get_data(array("lokasi_id"=>$id))->row()->lokasi_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($lokasi_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $lokasi_ket = $this->mm->get_data(array("lokasi_id"=>$id))->row()->lokasi_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($lokasi_ket);
       redirect($this->modul);
     }
   }
@@ -132,6 +139,10 @@ class Lokasi extends CI_Controller
         $data["lokasi_insert_date"] = date("Y-m-d H:i:s");
         $this->lm->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($lokasi_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -142,6 +153,10 @@ class Lokasi extends CI_Controller
         $data["lokasi_update_date"] = date("Y-m-d H:i:s");
         $where["lokasi_id"] = $lokasi_id;
         $this->lm->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($lokasi_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

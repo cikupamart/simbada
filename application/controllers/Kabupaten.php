@@ -68,7 +68,7 @@ class Kabupaten extends CI_Controller
     $data["bt"] = "Form Tambah";
     $data["pr"] = "<a href=\"".site_url("provinsi/tambah_data")."\" class=\"btn btn-primary btn-sm\">Tambah Provinsi</a>
     <a href=\"".site_url($this->modul)."\" class=\"btn btn-primary btn-sm\">List ".ucfirst($this->modul)."</a>";
-    
+
     $data['res_provinsi'] = $this->pm->get_data()->result();
 
     $this->template->load("template/template", $this->modul."/form", $data);
@@ -111,10 +111,17 @@ class Kabupaten extends CI_Controller
       $where["kabupaten_id"] = $id;
       $this->km->delete_data($where);
 
+      $kabupaten_ket = $this->mm->get_data(array("kabupaten_id"=>$id))->row()->kabupaten_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($kabupaten_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $kabupaten_ket = $this->mm->get_data(array("kabupaten_id"=>$id))->row()->kabupaten_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($kabupaten_ket);
       redirect($this->modul);
     }
   }
@@ -140,6 +147,10 @@ class Kabupaten extends CI_Controller
         $data["kabupaten_insert_date"] = date("Y-m-d H:i:s");
         $this->km->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($kabupaten_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -150,6 +161,10 @@ class Kabupaten extends CI_Controller
         $data["kabupaten_update_date"] = date("Y-m-d H:i:s");
         $where["kabupaten_id"] = $kabupaten_id;
         $this->km->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($kabupaten_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

@@ -110,10 +110,17 @@ class Unit_bidang extends CI_Controller
       $where["unit_bidang_id"] = $id;
       $this->ubm->delete_data($where);
 
+      $unit_bidang_ket = $this->mm->get_data(array("unit_bidang_id"=>$id))->row()->unit_bidang_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($unit_bidang_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $unit_bidang_ket = $this->mm->get_data(array("unit_bidang_id"=>$id))->row()->unit_bidang_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($unit_bidang_ket);
       redirect($this->modul);
     }
   }
@@ -139,6 +146,10 @@ class Unit_bidang extends CI_Controller
         $data["unit_bidang_insert_date"] = date("Y-m-d H:i:s");
         $this->ubm->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($unit_bidang_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -149,6 +160,10 @@ class Unit_bidang extends CI_Controller
         $data["unit_bidang_update_date"] = date("Y-m-d H:i:s");
         $where["unit_bidang_id"] = $unit_bidang_id;
         $this->ubm->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($unit_bidang_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

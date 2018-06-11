@@ -104,10 +104,18 @@ class Asal_usul extends CI_Controller
       $where["asal_usul_id"] = $id;
       $this->aum->delete_data($where);
 
+      $asal_usul_ket = $this->mm->get_data(array("asal_usul_id"=>$id))->row()->asal_usul_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($asal_usul_ket);
+      $this->session->set_flashdata($flashdata);
+
       redirect($this->modul);
     }
     else
     {
+      $asal_usul_ket = $this->mm->get_data(array("asal_usul_id"=>$id))->row()->asal_usul_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($asal_usul_ket);
       redirect($this->modul);
     }
   }
@@ -129,6 +137,10 @@ class Asal_usul extends CI_Controller
         $data["asal_usul_insert_date"] = date("Y-m-d H:i:s");
         $this->aum->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($asal_usul_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -139,6 +151,10 @@ class Asal_usul extends CI_Controller
         $data["asal_usul_update_date"] = date("Y-m-d H:i:s");
         $where["asal_usul_id"] = $asal_usul_id;
         $this->aum->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($asal_usul_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

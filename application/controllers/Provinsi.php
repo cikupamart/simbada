@@ -105,10 +105,17 @@ class Provinsi extends CI_Controller
       $where["provinsi_id"] = $id;
       $this->pm->delete_data($where);
 
+      $provinsi_ket = $this->mm->get_data(array("provinsi_id"=>$id))->row()->provinsi_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($provinsi_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $provinsi_ket = $this->mm->get_data(array("provinsi_id"=>$id))->row()->provinsi_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($provinsi_ket);
       redirect($this->modul);
     }
   }
@@ -132,6 +139,10 @@ class Provinsi extends CI_Controller
         $data["provinsi_insert_date"] = date("Y-m-d H:i:s");
         $this->pm->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($provinsi_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -142,6 +153,10 @@ class Provinsi extends CI_Controller
         $data["provinsi_update_date"] = date("Y-m-d H:i:s");
         $where["provinsi_id"] = $provinsi_id;
         $this->pm->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($provinsi_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

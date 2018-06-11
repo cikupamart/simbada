@@ -117,10 +117,17 @@ class Users extends CI_Controller
       $where["user_id"] = $id;
       $this->um->delete_data($where);
 
+      $user_nama = $this->mm->get_data(array("user_id"=>$id))->row()->user_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($user_nama);
+
       redirect($this->modul);
     }
     else
     {
+      $user_nama = $this->mm->get_data(array("user_id"=>$id))->row()->user_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($user_nama);
       redirect($this->modul);
     }
   }
@@ -154,7 +161,12 @@ class Users extends CI_Controller
 
         // simpan ke table users
         $data["user_insert_date"] = date("Y-m-d H:i:s");
+        $data["user_update_date"] = NULL;
         $this->um->save_data($data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($user_nama);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;
@@ -166,6 +178,10 @@ class Users extends CI_Controller
         $data["user_update_date"] = date("Y-m-d H:i:s");
         $where["user_id"] = $user_id;
         $this->um->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($user_nama);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

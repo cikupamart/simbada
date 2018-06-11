@@ -105,10 +105,17 @@ class Satuan_barang extends CI_Controller
       $where["satuan_barang_id"] = $id;
       $this->sbm->delete_data($where);
 
+      $satuan_barang_ket = $this->mm->get_data(array("satuan_barang_id"=>$id))->row()->satuan_barang_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($satuan_barang_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $satuan_barang_ket = $this->mm->get_data(array("satuan_barang_id"=>$id))->row()->satuan_barang_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($satuan_barang_ket);
       redirect($this->modul);
     }
   }
@@ -132,6 +139,10 @@ class Satuan_barang extends CI_Controller
         $data["satuan_barang_insert_date"] = date("Y-m-d H:i:s");
         $this->sbm->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($satuan_barang_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -142,6 +153,10 @@ class Satuan_barang extends CI_Controller
         $data["satuan_barang_update_date"] = date("Y-m-d H:i:s");
         $where["satuan_barang_id"] = $satuan_barang_id;
         $this->sbm->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($satuan_barang_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

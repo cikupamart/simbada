@@ -104,10 +104,17 @@ class Users_role extends CI_Controller
       $where["ur_id"] = $id;
       $this->urm->delete_data($where);
 
+      $ur_ket = $this->mm->get_data(array("ur_id"=>$id))->row()->ur_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($ur_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $ur_ket = $this->mm->get_data(array("ur_id"=>$id))->row()->ur_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($ur_ket);
       redirect($this->modul);
     }
   }
@@ -129,6 +136,10 @@ class Users_role extends CI_Controller
         $data["ur_insert_date"] = date("Y-m-d H:i:s");
         $this->urm->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($ur_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -139,6 +150,10 @@ class Users_role extends CI_Controller
         $data["ur_update_date"] = date("Y-m-d H:i:s");
         $where["ur_id"] = $ur_id;
         $this->urm->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($ur_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

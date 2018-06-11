@@ -112,10 +112,17 @@ class Ssub_unit extends CI_Controller
       $where["ssub_unit_id"] = $id;
       $this->subm->delete_data($where);
 
+      $ssub_unit_ket = $this->mm->get_data(array("ssub_unit_id"=>$id))->row()->ssub_unit_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($ssub_unit_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $ssub_unit_ket = $this->mm->get_data(array("ssub_unit_id"=>$id))->row()->ssub_unit_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($ssub_unit_ket);
       redirect($this->modul);
     }
   }
@@ -141,6 +148,10 @@ class Ssub_unit extends CI_Controller
         $data["ssub_unit_insert_date"] = date("Y-m-d H:i:s");
         $this->subm->save_data($data);
 
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($ssub_unit_ket);
+        $this->session->set_flashdata($flashdata);
+
         redirect($this->modul);
         break;
 
@@ -151,6 +162,10 @@ class Ssub_unit extends CI_Controller
         $data["ssub_unit_update_date"] = date("Y-m-d H:i:s");
         $where["ssub_unit_id"] = $ssub_unit_id;
         $this->subm->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($ssub_unit_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

@@ -105,10 +105,17 @@ class Bidang extends CI_Controller
       $where["bidang_id"] = $id;
       $this->bm->delete_data($where);
 
+      $bidang_ket = $this->mm->get_data(array("bidang_id"=>$id))->row()->bidang_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($bidang_ket);
+
       redirect($this->modul);
     }
     else
     {
+      $bidang_ket = $this->mm->get_data(array("bidang_id"=>$id))->row()->bidang_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($bidang_ket);
       redirect($this->modul);
     }
   }
@@ -130,7 +137,12 @@ class Bidang extends CI_Controller
 
         // simpan ke table users
         $data["bidang_insert_date"] = date("Y-m-d H:i:s");
+        $data["bidang_update_date"] = NULL;
         $this->bm->save_data($data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($bidang_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;
@@ -142,6 +154,10 @@ class Bidang extends CI_Controller
         $data["bidang_update_date"] = date("Y-m-d H:i:s");
         $where["bidang_id"] = $bidang_id;
         $this->bm->update_data($where, $data);
+
+        $flashdata["msg_simpan"] = "sukses";
+        $flashdata["ket"] = strtoupper($bidang_ket);
+        $this->session->set_flashdata($flashdata);
 
         redirect($this->modul);
         break;

@@ -9,6 +9,28 @@
   </div>
   <div class="box-body">
 
+    <?php
+    if ( ! is_null($this->session->flashdata('msg_simpan')) AND $this->session->flashdata('msg_simpan') == "sukses")
+    {
+      ?>
+      <div class="alert alert-success" id="success-alert" role="alert">Data <?php echo $this->session->flashdata('ket'); ?> berhasil disimpan</div>
+      <?php
+    }
+
+    if ( ! is_null($this->session->flashdata('msg_hapus')) || $this->session->flashdata('msg_hapus') == "sukses")
+    {
+      ?>
+      <div class="alert alert-warning" id="success-alert" role="alert">Data <?php echo $this->session->flashdata('ket'); ?> berhasil dihapus</div>
+      <?php
+    }
+    else if ( ! is_null($this->session->flashdata('msg_hapus')) || $this->session->flashdata('msg_hapus') == "gagal")
+    {
+      ?>
+      <div class="alert alert-warning" id="success-alert" role="alert">Data <?php echo $this->session->flashdata('ket'); ?> gagal dihapus</div>
+      <?php
+    }
+    ?>
+
     <table id="table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
       <thead>
         <tr>
@@ -58,6 +80,10 @@ $(document).ready(function() {
   //check all
   $("#check-all").click(function () {
     $(".data-check").prop('checked', $(this).prop('checked'));
+  });
+
+  $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+    $("#success-alert").slideUp(500);
   });
 });
 

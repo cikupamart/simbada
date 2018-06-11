@@ -129,28 +129,10 @@ class Menu_model extends CI_Model
       $this->db->update('hak_akses', $data);
     }
 
-    function get_detail_menu($where)
-    {
-      if (is_array($where))
-      {
-        foreach ($where as $key_where => $val_where)
-        {
-          $this->db->where($key_where, $val_where);
-        }
-      }
-      else
-      {
-        $this->db->where($where);
-      }
-
-      $qry = $this->db->get($this->table);
-      return $qry->num_rows() > 0 ? $qry->row() : FALSE;
-    }
-
     function delete_menu($id)
     {
       // delete di table menu
-      $this->db->where('id', $id);
+      $this->db->where('menu_id', $id);
       $this->db->delete($this->table);
 
       // delete di table hak akses

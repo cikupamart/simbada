@@ -111,10 +111,20 @@ class Menu extends CI_Controller
       // hapus di table menu
       $this->mm->delete_menu($id);
 
+      $menu_ket = $this->mm->get_data(array("menu_id"=>$id))->row()->menu_ket;
+      $flashdata["msg_hapus"] = "sukses";
+      $flashdata["ket"] = strtoupper($menu_ket);
+      $this->session->set_flashdata($flashdata);
+
       redirect($this->modul);
     }
     else
     {
+      $menu_ket = $this->mm->get_data(array("menu_id"=>$id))->row()->menu_ket;
+      $flashdata["msg_hapus"] = "gagal";
+      $flashdata["ket"] = strtoupper($menu_ket);
+      $this->session->set_flashdata($flashdata);
+
       redirect($this->modul);
     }
   }
@@ -149,7 +159,7 @@ class Menu extends CI_Controller
       $this->mm->save_menu($data_menu);
 
       // ambil menu_id
-      $row_menu = $this->mm->get_detail_menu($data_menu);
+      $row_menu = $this->mm->get_data($data_menu)->row();
       $id_menu = $row_menu->menu_id;
 
       // simpan ke table hak_akses
@@ -164,6 +174,11 @@ class Menu extends CI_Controller
 
         $this->mm->save_ha($arr_data_ha);
       }
+
+      $flashdata["msg_simpan"] = "sukses";
+      $flashdata["ket"] = strtoupper($menu_ket);
+      $this->session->set_flashdata($flashdata);
+
       redirect($this->modul);
     }
     // update data
@@ -203,6 +218,10 @@ class Menu extends CI_Controller
           $this->mm->update_ha($where_ha, $arr_data_ha);
         }
       }
+
+      $flashdata["msg_simpan"] = "sukses";
+      $flashdata["ket"] = strtoupper($menu_ket);
+      $this->session->set_flashdata($flashdata);
 
       redirect($this->modul);
     }
