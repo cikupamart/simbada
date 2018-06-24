@@ -1,18 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ssub_unit extends CI_Controller
+class Kode_lokasi extends CI_Controller
 {
-  var $modul = "ssub_unit";
-  var $ch = "Master Sub Sub Unit";
+  var $modul = "kode_lokasi";
+  var $ch = "Master Kode Lokasi";
 
   function __construct()
   {
     parent::__construct();
     $this->template->chk_auth();
 		$this->template->chk_view($this->modul);
-    $this->load->model('ssub_unit_model','subm');
+    $this->load->model('kode_lokasi_model','klm');
+    $this->load->model('pemilik_barang_model','pbm');
+    $this->load->model('provinsi_model','pm');
+    $this->load->model('kabupaten_model','km');
+    $this->load->model('bidang_model','bm');
+    $this->load->model('unit_bidang_model','ubm');
     $this->load->model('sub_unit_model','sum');
+    $this->load->model('ssub_unit_model','subm');
   }
 
   function index()
@@ -38,13 +44,16 @@ class Ssub_unit extends CI_Controller
       $row = array();
       $row[] = '<div class="text-center">'.$no.'</div>';
       $row[] = $rw->ssub_unit_kode;
-      $row[] = strtoupper($rw->ssub_unit_ket);
-      $row[] = strtoupper($rw->sub_unit_ket);
-      $row[] = strtoupper($rw->unit_bidang_ket);
+      $row[] = strtoupper($rw->pb_ket);
+      $row[] = strtoupper($rw->provinsi_ket);
+      $row[] = strtoupper($rw->kabupaten_ket);
       $row[] = strtoupper($rw->bidang_ket);
+      $row[] = strtoupper($rw->unit_bidang_ket);
+      $row[] = strtoupper($rw->sub_unit_ket);
+      $row[] = strtoupper($rw->ssub_unit_ket);
       $row[] = "<div class=\"text-center\">
-              <a href=\"".site_url($this->modul."/edit_data/".$rw->ssub_unit_id)."\" class=\"btn btn-primary btn-flat btn-xs\">Edit</a>
-              <button type=\"button\" title=\"Hapus Data\" class=\"btn btn-primary btn-flat btn-xs\" onClick=\"deleteItem('".$rw->ssub_unit_id."','".$rw->sub_unit_ket." - ".$rw->ssub_unit_ket."');\">Delete</button></div>";
+              <a href=\"".site_url($this->modul."/edit_data/".$rw->kode_lokasi_id)."\" class=\"btn btn-primary btn-flat btn-xs\">Edit</a>
+              <button type=\"button\" title=\"Hapus Data\" class=\"btn btn-primary btn-flat btn-xs\" onClick=\"deleteItem('".$rw->kode_lokasi_id."','".$rw->sub_unit_ket." - ".$rw->ssub_unit_ket."');\">Delete</button></div>";
 
       $data[] = $row;
     }
